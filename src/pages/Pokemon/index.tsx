@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 
 import { usePokemon } from 'context/PokemonContext';
+import { getPokemonImage } from 'context/PokemonContext/helpers';
 
 import Footer from 'components/Footer';
 import MobileHeader from 'components/MobileHeader';
@@ -32,12 +33,23 @@ type LocationType = Location & {
 const Pokemon: React.FC = () => {
   const [isLeaving, setIsLeaving] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [pokemonImage, setPokemonImage] = useState<string | null>(null);
 
   const setTitle = useTitle();
   const { pokemon, getPokemon } = usePokemon();
   const { name } = useParams();
   const { state } = useLocation() as LocationType;
   const navigateTo = useNavigate();
+
+  const handleLoadImage = useCallback(async (id: number, tryGif = true) => {
+    const image = await getPokemonImage(id, tryGif);
+    setPokemonImage(image);
+  }, []);
+
+  useEffect(() => {
+    if (pokemon?.id) handleLoadImage(pokemon.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pokemon?.id]);
 
   useEffect(() => {
     setTitle(unslugify(String(name)));
@@ -76,7 +88,12 @@ const Pokemon: React.FC = () => {
                   <MainTitle>{unslugify(pokemon.name)}</MainTitle>
                   <Index>{pokemon.pokedexIndex}</Index>
                 </div>
-                <PokemonDetails pokemon={pokemon} isLeaving={isLeaving} />
+                <PokemonDetails
+                  pokemon={pokemon}
+                  image={pokemonImage ?? undefined}
+                  onImageError={() => handleLoadImage(pokemon.id, false)}
+                  isLeaving={isLeaving}
+                />
               </Container>
               <Footer />
             </>

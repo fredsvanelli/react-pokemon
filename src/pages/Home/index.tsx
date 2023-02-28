@@ -25,7 +25,7 @@ const Home: React.FC = () => {
   const { pokemons, loading, hasMore, fetchNextPage } = usePokemon();
 
   useEffect(() => {
-    setTitle(t('home.head-title'));
+    setTitle();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [i18n.resolvedLanguage]);
 

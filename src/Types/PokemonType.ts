@@ -24,7 +24,6 @@ export type PokemonType = {
   pokedexIndex: string;
   name: string;
   color: string;
-  image: string | null;
   height?: number;
   weight?: number;
   types: string[];

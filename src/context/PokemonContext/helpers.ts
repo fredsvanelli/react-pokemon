@@ -1,7 +1,45 @@
 import { PokemonGraphQLDataType, PokemonType } from 'Types/PokemonType';
 
-const getPokemonImage = (sprites: string): string | null =>
-  JSON.parse(sprites)?.other['official-artwork']?.front_default ?? null;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const importPNG = (id: number): Promise<any> =>
+  import(
+    /* @vite-ignore */
+    `/node_modules/pokemon-sprites/sprites/pokemon/other/official-artwork/${id}.png`
+  );
+
+export const getPokemonImage = async (
+  id: number,
+  tryGif = false,
+): Promise<string | null> => {
+  if (tryGif) {
+    try {
+      const image = await import(
+        /* @vite-ignore */
+        `/node_modules/pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`
+      );
+
+      if (image) return image.default;
+    } catch (_) {
+      try {
+        const image = await importPNG(id);
+
+        if (image) return image.default;
+      } catch (__) {
+        return null;
+      }
+    }
+  }
+
+  try {
+    const image = await importPNG(id);
+
+    if (image) return image.default;
+  } catch (_) {
+    return null;
+  }
+
+  return null;
+};
 
 export const calcFemaleGenderRatePercent = (value: number): number => {
   let result = (value / 8) * 100;
@@ -28,12 +66,6 @@ export const normalizePokemonData = (
     weight: item.weight ? parseFloat((item.weight / 10).toFixed(1)) : undefined,
     color: item.specy.color.name,
     types: item.types.data.map((type) => type.type.name),
-    image:
-      Array.isArray(item.images) &&
-      item.images.length > 0 &&
-      item.images[0]?.sprites
-        ? getPokemonImage(item.images[0]?.sprites)
-        : null,
     descriptions: Array.isArray(item.specy?.descriptions)
       ? item.specy.descriptions?.map((description) => description.text)
       : [],

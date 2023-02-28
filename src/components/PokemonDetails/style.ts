@@ -72,6 +72,7 @@ export const ImageContainer = styled.div`
 
   & > img {
     max-width: 350px;
+    min-width: 255px;
 
     @media (max-width: 767px) {
       max-width: 60%;
