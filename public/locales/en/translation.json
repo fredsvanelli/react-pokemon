@@ -1,0 +1,19 @@
+{
+  "home": {
+    "head-title": "Home",
+    "title": "Which Pokémon would you choose?"
+  },
+  "not-found": {
+    "title": "Page not found"
+  },
+  "words": {
+    "loading": "Loading",
+    "description": "Description",
+    "height": "Height",
+    "weight": "Weight",
+    "main-move": "Main move",
+    "features": "Features",
+    "gender": "Gender",
+    "total": "Total"
+  }
+}
