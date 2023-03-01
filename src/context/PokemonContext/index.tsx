@@ -30,7 +30,7 @@ interface IPokemonProviderProps {
 
 export const ReactContext = createContext<IContextProps>({} as IContextProps);
 
-const RESULTS_PER_PAGE = 20000;
+const RESULTS_PER_PAGE = 24;
 
 export const PokemonProvider: React.FC<IPokemonProviderProps> = ({
   children,
