@@ -34,7 +34,7 @@ const Pokemon: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const setTitle = useTitle();
-  const { pokemon, getPokemon } = usePokemon();
+  const { pokemon, getPokemon, clearPokemon } = usePokemon();
   const { name } = useParams();
   const { state } = useLocation() as LocationType;
   const navigateTo = useNavigate();
@@ -47,6 +47,8 @@ const Pokemon: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 500);
+
+    return () => clearPokemon();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

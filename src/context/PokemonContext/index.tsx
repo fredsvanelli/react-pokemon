@@ -18,6 +18,7 @@ interface IContextProps {
   fetchNextPage: () => void;
   hasMore: boolean;
   getPokemon: (name: string) => void;
+  clearPokemon: () => void;
   loading: {
     multipleFirstLoad: boolean;
     single: boolean;
@@ -77,6 +78,8 @@ export const PokemonProvider: React.FC<IPokemonProviderProps> = ({
     [fetchPokemonQuery, loadingSingle],
   );
 
+  const clearPokemon = useCallback(() => setPokemon(null), []);
+
   return (
     <ReactContext.Provider
       value={useMemo(
@@ -86,6 +89,7 @@ export const PokemonProvider: React.FC<IPokemonProviderProps> = ({
           fetchNextPage,
           hasMore,
           getPokemon,
+          clearPokemon,
           loading: {
             multipleFirstLoad: loading && !pokemons.length,
             single: loadingSingle,
@@ -99,6 +103,7 @@ export const PokemonProvider: React.FC<IPokemonProviderProps> = ({
           hasMore,
           fetchNextPage,
           getPokemon,
+          clearPokemon,
         ],
       )}
     >
