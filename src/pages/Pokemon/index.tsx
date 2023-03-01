@@ -59,6 +59,8 @@ const Pokemon: React.FC = () => {
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 500);
+
+    return () => setPokemonImage(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
