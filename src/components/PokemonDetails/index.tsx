@@ -23,15 +23,11 @@ import {
 
 interface IPokemonDetailsProps {
   pokemon: PokemonType;
-  image?: string;
-  onImageError?: () => void;
   isLeaving: boolean;
 }
 
 const PokemonDetails: React.FC<IPokemonDetailsProps> = ({
   pokemon,
-  image,
-  onImageError,
   isLeaving,
 }) => {
   const { t } = useTranslation();
@@ -60,15 +56,14 @@ const PokemonDetails: React.FC<IPokemonDetailsProps> = ({
           <Pill label={capitalizeWord(type)} key={type} />
         ))}
       </Stack>
-      {image && (
+      {pokemon.image && (
         <ImageContainer
           className={`text-center ${isLeaving ? 'is-leaving' : ''}`}
         >
           <img
             className="img-fluid"
-            src={image}
+            src={pokemon.image}
             alt={unslugify(pokemon.name)}
-            onError={onImageError}
           />
         </ImageContainer>
       )}

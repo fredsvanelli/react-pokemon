@@ -1,10 +1,5 @@
 import { PokemonGraphQLDataType, PokemonType } from 'Types/PokemonType';
 
-export const getPokemonImage = (id: number, tryGif = false): string =>
-  tryGif
-    ? `/images/pokemon/animated/${id}.gif`
-    : `/images/pokemon/official-artwork/${id}.png`;
-
 export const calcFemaleGenderRatePercent = (value: number): number => {
   let result = (value / 8) * 100;
   if (result > 100) result = 100;
@@ -28,6 +23,7 @@ export const normalizePokemonData = (
     name: item.name,
     height: item.height ? parseFloat((item.height / 10).toFixed(1)) : undefined,
     weight: item.weight ? parseFloat((item.weight / 10).toFixed(1)) : undefined,
+    image: `/images/pokemon/official-artwork/${item.id}.png`,
     color: item.specy.color.name,
     types: item.types.data.map((type) => type.type.name),
     descriptions: Array.isArray(item.specy?.descriptions)
