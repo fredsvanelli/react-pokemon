@@ -8,7 +8,7 @@ interface IPokemonLoader {
   color?: string;
 }
 
-const PokemonLoader: React.FC<IPokemonLoader> = ({ color = 'white' }) => (
+const PokemonLoader: React.FC<IPokemonLoader> = ({ color = 'default' }) => (
   <Wrapper>
     <AnimationContainer color={color} />
   </Wrapper>

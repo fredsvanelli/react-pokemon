@@ -62,7 +62,7 @@ const Home: React.FC = () => {
       <Header />
       <Main className="pt-4 mt-4 pt-md-5 mt-md-5">
         <Container>
-          <MainTitle className="mb-4 pb-4 mb-md-5 pb-md-5">
+          <MainTitle className="mb-4 pb-4 mb-md-5 pb-md-5 text-light">
             {t('home.title')}
           </MainTitle>
           <Suspense

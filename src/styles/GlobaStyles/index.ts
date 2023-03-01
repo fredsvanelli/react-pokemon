@@ -18,6 +18,7 @@ export default createGlobalStyle`
     body {
         font-size: 1.6rem;
         font-weight: 400;
+        background-color: #db2121;
     }
 
     a, a:hover { color: inherit; }
