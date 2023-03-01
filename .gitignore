@@ -10,6 +10,8 @@
 
 # production
 /build
+/dist
+/public/images/pokemon/*
 
 # misc
 .DS_Store

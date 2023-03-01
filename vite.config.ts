@@ -33,5 +33,17 @@ export default defineConfig(({ mode }) => ({
     react(),
     loadVersion(),
     ViteWebfontDownload(),
+    import('vite-plugin-copy').then(({ copy }) =>
+      copy([
+        {
+          src: './node_modules/pokemon-sprites/sprites/pokemon/other/official-artwork/*.png',
+          dest: './public/images/pokemon/official-artwork',
+        },
+        {
+          src: './node_modules/pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/*.gif',
+          dest: './public/images/pokemon/animated',
+        },
+      ]),
+    ),
   ],
 }));

@@ -1,45 +1,9 @@
 import { PokemonGraphQLDataType, PokemonType } from 'Types/PokemonType';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const importPNG = (id: number): Promise<any> =>
-  import(
-    /* @vite-ignore */
-    `/node_modules/pokemon-sprites/sprites/pokemon/other/official-artwork/${id}.png`
-  );
-
-export const getPokemonImage = async (
-  id: number,
-  tryGif = false,
-): Promise<string | null> => {
-  if (tryGif) {
-    try {
-      const image = await import(
-        /* @vite-ignore */
-        `/node_modules/pokemon-sprites/sprites/pokemon/versions/generation-v/black-white/animated/${id}.gif`
-      );
-
-      if (image) return image.default;
-    } catch (_) {
-      try {
-        const image = await importPNG(id);
-
-        if (image) return image.default;
-      } catch (__) {
-        return null;
-      }
-    }
-  }
-
-  try {
-    const image = await importPNG(id);
-
-    if (image) return image.default;
-  } catch (_) {
-    return null;
-  }
-
-  return null;
-};
+export const getPokemonImage = (id: number, tryGif = false): string =>
+  tryGif
+    ? `/images/pokemon/animated/${id}.gif`
+    : `/images/pokemon/official-artwork/${id}.png`;
 
 export const calcFemaleGenderRatePercent = (value: number): number => {
   let result = (value / 8) * 100;
